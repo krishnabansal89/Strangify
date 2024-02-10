@@ -10,7 +10,8 @@ export default function Home() {
 
   localpeerConnection.onicecandidate = (event) => {
     if (event.candidate) {
-      // Send the candidate to the remote peer
+      // Send the candidate to the remote peerv
+      console.log(event.candidate);
     }
   };
 
@@ -26,7 +27,7 @@ export default function Home() {
           localpeerConnection.createOffer().then((offer) => {
             localpeerConnection.setLocalDescription(offer).then(() => {
               setLocalDescriptionSet(true);
-              console.log(offer);
+              console.log(JSON.stringify(offer));
               const offerElement = document.getElementById("offer");
               if (offerElement) {
                 offerElement.innerText = JSON.stringify(offer);
@@ -77,6 +78,7 @@ export default function Home() {
           <button onClick={() => {
             try {
               const parsedAnswer = JSON.parse(answer);
+              console.log(parsedAnswer);
               if (localDescriptionSet) {
                 localpeerConnection.setRemoteDescription(parsedAnswer).then(() => {
                   console.log(parsedAnswer);
